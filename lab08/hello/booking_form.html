@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block body %}
+<img src="https://easydrawingguides-7512.kxcdn.com/wp-content/uploads/2017/01/How-to-Draw-a-cartoon-car-20.png" width="100px" height="100px"/>
+
+<br/>
+
+<div>
+  <h2>{{car}}</h2>
+</div>
+
+<div>
+  <!-- 
+    confirmation: True if in the booking confirmation stage, False otherwise
+  -->
+
+  <form method="POST">
+    <!-- Input Fields -->
+    <div>
+      <input {% if confirmation %}readonly value="{{form['start']}}"{% endif %} name="start">Start Location
+      <br/>
+<!---------------------------->
+       {% if 'start' in errors %}
+            <font size="3" color="red">{{ errors['start'] }}</font><br>
+       {% endif %}
+<!---------------------------->
+      <input {% if confirmation %}readonly value="{{form['end']}}"{% endif %}   name="end">End Location
+    </div>
+<!---------------------------->
+       {% if 'end' in errors %}
+            <font size="3" color="red">{{ errors['end'] }}</font><br>
+       {% endif %}
+<!---------------------------->
+    <div>
+      <input {% if confirmation %}readonly value="{{form['start_date']}}"{% endif %} type="date" name="start_date">Start Date
+      <br/>
+      <!---------------------------->
+      {% if 'start_date' in errors %}
+        <font size="3" color="red">{{ errors['start_date'] }}</font><br>
+    {% endif %}
+<!---------------------------->
+      <input {% if confirmation %}readonly value="{{form['end_date']}}"{% endif %}   type="date" name="end_date">End Date
+      <!---------------------------->
+      {% if 'end_date' in errors %}
+        <font size="3" color="red">{{ errors['end_date'] }}</font><br>
+    {% endif %}
+<!---------------------------->
+      <br/>
+      {% if 'period' in errors %}
+        <font size="3" color="red">{{ errors['period'] }}</font><br>
+    {% endif %}
+<!---------------------------->
+    </div>
+
+
+
+    <!-- Submit Buttons -->
+    {% if confirmation %}
+      <div>
+        Total fee: ${{fee}}
+      </div>
+      <button name="confirm"  type="submit">Confirm</button>
+      <button name="cancel"   type="submit">Cancel</button>
+
+    {% else %}
+      <button name="check"    type="submit">Check Booking</button>
+
+    {% endif %}
+
+  </form>
+</div>
+{% endblock %}
